@@ -1,0 +1,1 @@
+INSERT INTO core.customers (first_name,last_name,email,phone,birth_date,kyc_status,risk_level) SELECT 'Harold'||n as first_name, 'Exemple'||n as last_name,'novabank'||n||'@novabank.com' as email,'0'||n as phone, current_date - 19*365-(random(0,20000)) as birth_date, 'en_attente','0' FROM generate_series (1,10000) as n;

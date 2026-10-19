@@ -106,5 +106,11 @@ sudo -u postgres psql -v ON_ERROR_STOP=ON -f ./sql/02_tables.sql -d ${nomdb}
 #message réussite étape 5
 echo -e "${VERT_GRAS}✓ Étape 5 : Création des tables et des types réussis !${RESET}"
 
+#se connecte à la db nomdb et créé les tables avec les colonnes et les types
+sudo -u postgres psql -v ON_ERROR_STOP=ON -f ./sql/03_donnees.sql -d ${nomdb}
+
+#message réussite étape 5
+echo -e "${VERT_GRAS}✓ Étape 6 : Insertion des données dans les tables réussie !${RESET}"
+
 #message final de réussite
 echo -e "${VERT_GRAS}✓ Tout s'est bien passé, tout a bien été configuré !${RESET}"
