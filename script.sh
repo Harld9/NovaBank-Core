@@ -92,4 +92,8 @@ fi
 #message 3/3
 echo -e "${VERT_GRAS}✓ Étape 3 : Configuration ufw terminée 3/3 !${RESET}"
 
-echo -e "${VERT_GRAS}✓ Tout s'est bien passé PostgreSQL est installé et actif, ufw est installé et actif et pg_hba a bien été configuré !${RESET}"
+
+#lance postgres en tant que postgres
+sudo -u postgres psql -v ON_ERROR_STOP=ON -f ./sql/01_base.sql
+
+echo -e "${VERT_GRAS}✓ Tout s'est bien passé, tout a bien été configuré${RESET}"
