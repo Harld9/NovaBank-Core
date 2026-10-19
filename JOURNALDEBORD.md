@@ -37,3 +37,7 @@ pg_hba : Host-Based Authentication soit authentification selon la machine d’**
 11. activation des écritures pour ufw
 12. vérification qu’ufw est actif
 13. message de réussite général
+
+### Étape 4 : Connexion puis création de la base de données NovaBank et création des schémas core et audit
+
+J’ai maintenant modifié le script pour qu’il se connecte à postgre sudo - u postgres psql puis créer la base de données ou la supprimer puis la recréer si elle existe deja puis créer les schémas core et audit
