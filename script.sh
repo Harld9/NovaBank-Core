@@ -29,7 +29,7 @@ if [[ ! -d ${cheminpostgresql} ]]; then
 fi
 
 #message réussite étape 1
-echo -e "${VERT_GRAS}✓ Étape 1 : Installation de PostgreSql et UFW réalisée !${RESET}"
+echo -e "${VERT_GRAS}✓ Étape 1 : Installation de PostgreSql et UFW réalisées !${RESET}"
 
 #ecriture des listen_addresses dans /etc/postgresql/18/main/conf.d/listenaddresses.conf
 echo listen_addresses = "'*'" > "${cheminpostgresql}/conf.d/listenaddresses.conf"
@@ -98,13 +98,13 @@ echo -e "${VERT_GRAS}✓ Étape 3 : Configuration ufw terminée !${RESET}"
 sudo -u postgres psql -v ON_ERROR_STOP=ON -f ./sql/01_base.sql
 
 #message réussite étape 4
-echo -e "${VERT_GRAS}✓ Étape 4 : Création de la base de données et des schémas réussis !${RESET}"
+echo -e "${VERT_GRAS}✓ Étape 4 : Création de la base de données et des schémas réussie !${RESET}"
 
 #se connecte à la db nomdb et créé les tables avec les colonnes et les types
 sudo -u postgres psql -v ON_ERROR_STOP=ON -f ./sql/02_tables.sql -d ${nomdb}
 
 #message réussite étape 5
-echo -e "${VERT_GRAS}✓ Étape 5 : Création des tables et des types réussis !${RESET}"
+echo -e "${VERT_GRAS}✓ Étape 5 : Création des tables et des types réussie !${RESET}"
 
 #se connecte à la db nomdb et créé les tables avec les colonnes et les types
 sudo -u postgres psql -v ON_ERROR_STOP=ON -f ./sql/03_donnees.sql -d ${nomdb}
@@ -115,8 +115,16 @@ echo -e "${VERT_GRAS}✓ Étape 6 : Insertion des données dans les tables réus
 #se connecte à la db nomdb et supprime puis recréé les roles et donnes les droits sur la db aux roles
 sudo -u postgres psql -v ON_ERROR_STOP=ON -f ./sql/04_droits.sql -d ${nomdb}
 
+#definition du mot de passe par le lanceur du script
+sudo -u postgres psql -d ${nomdb} -c "\password harold_analyst"
+sudo -u postgres psql -d ${nomdb} -c "\password harold_support"
+sudo -u postgres psql -d ${nomdb} -c "\password harold_appli"
+sudo -u postgres psql -d ${nomdb} -c "\password harold_auditeur"
+
+
 #message réussite étape 7
 echo -e "${VERT_GRAS}✓ Étape 7 : Création des roles et configuration des droits réussies !${RESET}"
+
 
 #message final de réussite
 echo -e "${VERT_GRAS}✓ Tout s'est bien passé, tout a bien été configuré !${RESET}"

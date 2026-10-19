@@ -26,7 +26,7 @@ pg_hba : Host-Based Authentication soit authentification selon la machine d’**
 
 ### Étape 4 : Connexion puis création de la base de données NovaBank et création des schémas core et audit, insertion des données, et configuration des droits
 
-J’ai maintenant modifié le script pour qu’il se connecte à postgre sudo - u postgres psql puis créer la base de données ou la supprimer puis la recréer si elle existe deja puis créer les schémas core et audit. J'ai ensuite créer un fichier sql pour créer les tables avec les colonnes et les types bien définis pour éviter tout problème de sécurité, j'en ai par la suite rajouté notamment pour faire des checks afin d'éviter des valeurs incongrues ou des failles de sécurité.J'ai rajouté les insertions et la modification du montant sur les comptes aléatoirement.J'ai ajouté des droits sur les tables afin que chaque role ait les droits nécessaires pour travailler.
+J’ai maintenant modifié le script pour qu’il se connecte à postgre sudo - u postgres psql puis créer la base de données ou la supprimer puis la recréer si elle existe deja puis créer les schémas core et audit. J'ai ensuite créer un fichier sql pour créer les tables avec les colonnes et les types bien définis pour éviter tout problème de sécurité, j'en ai par la suite rajouté notamment pour faire des checks afin d'éviter des valeurs incongrues ou des failles de sécurité.J'ai rajouté les insertions et la modification du montant sur les comptes aléatoirement.J'ai ajouté des droits sur les tables afin que chaque role ait les droits nécessaires pour travailler.J'ai ajouté chaque role à un groupe et une demande de mot de passe pour chaque role/utilisateur.
 
 
 
@@ -47,4 +47,5 @@ J’ai maintenant modifié le script pour qu’il se connecte à postgre sudo - 
 14. se connecte à la db nomdb et créé les tables avec les colonnes et les types
 15. se connecte à la db nomdb et insert 10000 clients, 2 comptes par client (20000 comptes), 1 million de transactions et modification des montants sur les comptes de manièere aléatoire
 16. se connecte à la db nomdb et donne les droits nécessaires à chaque role
-17. message de réussite général
+17. Définition des mots de passe pour chaque role
+18. message de réussite général
