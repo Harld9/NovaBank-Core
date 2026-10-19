@@ -109,8 +109,14 @@ echo -e "${VERT_GRAS}✓ Étape 5 : Création des tables et des types réussis !
 #se connecte à la db nomdb et créé les tables avec les colonnes et les types
 sudo -u postgres psql -v ON_ERROR_STOP=ON -f ./sql/03_donnees.sql -d ${nomdb}
 
-#message réussite étape 5
+#message réussite étape 6
 echo -e "${VERT_GRAS}✓ Étape 6 : Insertion des données dans les tables réussie !${RESET}"
+
+#se connecte à la db nomdb et supprime puis recréé les roles et donnes les droits sur la db aux roles
+sudo -u postgres psql -v ON_ERROR_STOP=ON -f ./sql/04_droits.sql -d ${nomdb}
+
+#message réussite étape 7
+echo -e "${VERT_GRAS}✓ Étape 7 : Création des roles et configuration des droits réussies !${RESET}"
 
 #message final de réussite
 echo -e "${VERT_GRAS}✓ Tout s'est bien passé, tout a bien été configuré !${RESET}"

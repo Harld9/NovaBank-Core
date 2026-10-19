@@ -24,9 +24,9 @@ pg_hba : Host-Based Authentication soit authentification selon la machine d’**
 
 **Modification ufw dans le script :** Tout d’abord il faut checker s’il est installé via : dpkg -l | grep ufw, il l’est c’est bon. J’ai mit comme regle de tout fermer via `sudo ufw default deny incoming`  il faudra par la suite ouvrir uniquement ce dont on a besoin. Puis j’ai autorisé les sorties pour par exemple pouvoir télécharger des paquets via `apt-get` ou envoyer sur github. Ensuite on doit ouvrir le port pour le SSH via `ufw allow from 192.168.56.0/24 to any port 22 proto tcp` et pour postgresql via `ufw allow from 192.168.56.0/24 to any port 5432 proto tcp`. Puis activer les règles via `ufw enable -- force` (--force pour avoir avoir de message de confirmation). J'ai rajouté des étapes de robustesse et de vérification notamment sur la vérification du statut d'ufw pour voir s'il est actif via un grep `ufw status | grep -q "Status: active`. Et pour rajouter du confort visuel j'ai défini des variables de couleurs et des echos avec des couleurs avec l'option -e (ne pas oublier de reset la couleur a la fin de la chaine de caractères).
 
-### Étape 4 : Connexion puis création de la base de données NovaBank et création des schémas core et audit
+### Étape 4 : Connexion puis création de la base de données NovaBank et création des schémas core et audit, insertion des données, et configuration des droits
 
-J’ai maintenant modifié le script pour qu’il se connecte à postgre sudo - u postgres psql puis créer la base de données ou la supprimer puis la recréer si elle existe deja puis créer les schémas core et audit. J'ai ensuite créer un fichier sql pour créer les tables avec les colonnes et les types bien définis pour éviter tout problème de sécurité, j'en ai par la suite rajouté notamment pour faire des checks afin d'éviter des valeurs incongrues ou des failles de sécurité.J'ai rajouté les insertions et la modification du montant sur les comptes aléatoirement.
+J’ai maintenant modifié le script pour qu’il se connecte à postgre sudo - u postgres psql puis créer la base de données ou la supprimer puis la recréer si elle existe deja puis créer les schémas core et audit. J'ai ensuite créer un fichier sql pour créer les tables avec les colonnes et les types bien définis pour éviter tout problème de sécurité, j'en ai par la suite rajouté notamment pour faire des checks afin d'éviter des valeurs incongrues ou des failles de sécurité.J'ai rajouté les insertions et la modification du montant sur les comptes aléatoirement.J'ai ajouté des droits sur les tables afin que chaque role ait les droits nécessaires pour travailler.
 
 
 
@@ -46,4 +46,5 @@ J’ai maintenant modifié le script pour qu’il se connecte à postgre sudo - 
 13. lance postgres en tant que postgres et créé la db
 14. se connecte à la db nomdb et créé les tables avec les colonnes et les types
 15. se connecte à la db nomdb et insert 10000 clients, 2 comptes par client (20000 comptes), 1 million de transactions et modification des montants sur les comptes de manièere aléatoire
-16. message de réussite général
+16. se connecte à la db nomdb et donne les droits nécessaires à chaque role
+17. message de réussite général
