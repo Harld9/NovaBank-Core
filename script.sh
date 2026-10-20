@@ -125,6 +125,11 @@ sudo -u postgres psql -d ${nomdb} -c "\password harold_auditeur"
 #message réussite étape 7
 echo -e "${VERT_GRAS}✓ Étape 7 : Création des roles et configuration des droits réussies !${RESET}"
 
+#se connecte à la db nomdb et créé les vues puis attribue les roles
+sudo -u postgres psql -v ON_ERROR_STOP=ON -f ./sql/05_vues.sql -d ${nomdb}
+
+#message réussite étape 8
+echo -e "${VERT_GRAS}✓ Étape 7 : Création des vues et attribution des droits réussies !${RESET}"
 
 #message final de réussite
 echo -e "${VERT_GRAS}✓ Tout s'est bien passé, tout a bien été configuré !${RESET}"
