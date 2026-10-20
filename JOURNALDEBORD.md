@@ -1,4 +1,3 @@
-```
 ##Journal de bord
 
 ### Étape 0 :
@@ -39,6 +38,8 @@ With check option : bloque toute modification via la vue si la nouvelle donnée 
 
 J'ai modifié le script afin qu'il exécute 06_index.sql et que les requêtes soient plus rapides au vu du nombre d'écritures. J'ai ensuite rajouté dans le script un comparatif du temps d'éxécution avant après.
 
+### Étape 7 : J'ai modifié le script afin qu'il exécute 07_triggers.sql et que les triggers avec un trigger qui calcule automatiquement la somme sur les comptes a chaque isnertion, un trigger qui empêche les insertions et modifications du passé, et un trigger qui note les fraudes dans audit.audit_log  
+
 Étapes du script : 
 1. vérification root
 2. mise à jour du catalogue
@@ -61,5 +62,5 @@ J'ai modifié le script afin qu'il exécute 06_index.sql et que les requêtes so
 19. Calcul du temps d'une requete via explain analyze sans index
 20. Création des index
 21. Calcul du temps d'une requete via explain analyze avec index
+22. Création des triggers
 . message de réussite général
-```

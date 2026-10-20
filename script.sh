@@ -131,17 +131,23 @@ sudo -u postgres psql -v ON_ERROR_STOP=ON -f ./sql/05_vues.sql -d ${nomdb}
 #message réussite étape 8
 echo -e "${VERT_GRAS}✓ Étape 8 : Création des vues et attribution des droits réussies !${RESET}"
 
-# Affichage du temps d'une requête dans core.transactions SANS index
+#affichage du temps d'une requête dans core.transactions SANS index
 echo "Temps d'une requête SANS index : $(sudo -u postgres psql -d "${nomdb}" -t -c "EXPLAIN ANALYZE SELECT * FROM core.transactions WHERE account_id = 42;" | grep "Execution Time")"
 
-# Création des index
+#création des index
 sudo -u postgres psql -v ON_ERROR_STOP=ON -f ./sql/06_index.sql -d "${nomdb}"
 
-# Affichage du temps d'une requête dans core.transactions AVEC index
+#affichage du temps d'une requête dans core.transactions AVEC index
 echo "Temps d'une requête AVEC index : $(sudo -u postgres psql -d "${nomdb}" -t -c "EXPLAIN ANALYZE SELECT * FROM core.transactions WHERE account_id = 42;" | grep "Execution Time")"
 
 #message réussite étape 9
 echo -e "${VERT_GRAS}✓ Étape 9 : Création des index réussie !${RESET}"
+
+#creation des triggers
+sudo -u postgres psql -v ON_ERROR_STOP=ON -f ./sql/07_triggers.sql -d "${nomdb}"
+
+#message réussite étape 10
+echo -e "${VERT_GRAS}✓ Étape 10 : Création des triggers réussie !${RESET}"
 
 #message final de réussite
 echo -e "${VERT_GRAS}✓ Tout s'est bien passé, tout a bien été configuré !${RESET}"
