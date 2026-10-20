@@ -1,3 +1,4 @@
+```
 ##Journal de bord
 
 ### Étape 0 :
@@ -36,7 +37,7 @@ With check option : bloque toute modification via la vue si la nouvelle donnée 
 
 ### Étape 6 : 
 
-
+J'ai modifié le script afin qu'il exécute 06_index.sql et que les requêtes soient plus rapides au vu du nombre d'écritures. J'ai ensuite rajouté dans le script un comparatif du temps d'éxécution avant après.
 
 Étapes du script : 
 1. vérification root
@@ -57,4 +58,8 @@ With check option : bloque toute modification via la vue si la nouvelle donnée 
 16. se connecte à la db nomdb et donne les droits nécessaires à chaque role
 17. définition des mots de passe pour chaque role
 18. création des vues et attributions des droits
+19. Calcul du temps d'une requete via explain analyze sans index
+20. Création des index
+21. Calcul du temps d'une requete via explain analyze avec index
 . message de réussite général
+```

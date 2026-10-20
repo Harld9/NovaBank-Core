@@ -1,9 +1,3 @@
---on supprime les vues si elles existent déjà
-DROP VIEW IF EXISTS v_support;
-DROP VIEW IF EXISTS v_comptes_actifs;
-DROP MATERIALIZED VIEW IF EXISTS mv_somme_soldes;
-
---puis on les créé 
 --creation de la vue qui n'affiche pas l'entiereté des infos sensibles des **** a la place du contenu sensible
 CREATE VIEW v_support AS SELECT first_name, last_name, LEFT(SPLIT_PART(email, '@', 1),1) || '*****@' || SPLIT_PART(email, '@', 2) as email,LEFT(phone,2) ||'********'|| RIGHT(phone,2) as phone FROM core.customers;
 
