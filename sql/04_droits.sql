@@ -27,6 +27,12 @@ GRANT support TO employe_support;
 GRANT appli TO employe_appli;
 GRANT auditeur TO employe_auditeur;
 
+-- on donne les droits du patron
+GRANT ALL PRIVILEGES ON DATABASE novabank TO patron_novabank;
+GRANT ALL PRIVILEGES ON SCHEMA core, audit TO patron_novabank;
+GRANT ALL PRIVILEGES ON ALL TABLES IN SCHEMA core, audit TO patron_novabank;
+GRANT ALL PRIVILEGES ON ALL SEQUENCES IN SCHEMA core, audit TO patron_novabank;
+
 --on donne le droit de se connecter aux seuls comptes souhaités
 GRANT CONNECT ON DATABASE novabank TO analyst,support,appli,auditeur;
 

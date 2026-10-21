@@ -1,3 +1,7 @@
+
+--on dit que tout ce qui va etre créé sera créé par le role patron_novabank pour qu'il soit proprieatire des tables
+SET ROLE patron_novabank;
+
 --création des tables s'ils elles n'existent pas déjà
 CREATE TABLE IF NOT EXISTS core.customers (
 customer_id bigint GENERATED ALWAYS AS IDENTITY PRIMARY KEY,
