@@ -40,6 +40,10 @@ J'ai modifié le script afin qu'il exécute 06_index.sql et que les requêtes so
 
 ### Étape 7 : J'ai modifié le script afin qu'il exécute 07_triggers.sql et que les triggers avec un trigger qui calcule automatiquement la somme sur les comptes a chaque isnertion, un trigger qui empêche les insertions et modifications du passé, et un trigger qui note les fraudes dans audit.audit_log  
 
+
+### Étape 8 : J'ai modifié le script afin qu'il exécute 08_procedures.sql qui créé 3 procédures une pour créer un virement sécurisé en évitant les deadlocks (actions concurrentes), une pour ouvrir un compte, et une pour créer un relevé de compte de telle date à telle date.
+
+
 Étapes du script : 
 1. vérification root
 2. mise à jour du catalogue
@@ -63,4 +67,5 @@ J'ai modifié le script afin qu'il exécute 06_index.sql et que les requêtes so
 20. Création des index
 21. Calcul du temps d'une requete via explain analyze avec index
 22. Création des triggers
+23. Création des procédures
 . message de réussite général

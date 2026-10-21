@@ -149,5 +149,11 @@ sudo -u postgres psql -v ON_ERROR_STOP=ON -f ./sql/07_triggers.sql -d "${nomdb}"
 #message réussite étape 10
 echo -e "${VERT_GRAS}✓ Étape 10 : Création des triggers réussie !${RESET}"
 
+#creation des procedures
+sudo -u postgres psql -v ON_ERROR_STOP=ON -f ./sql/08_procedures.sql -d "${nomdb}"
+
+#message réussite étape 11
+echo -e "${VERT_GRAS}✓ Étape 11 : Création des procédures réussie !${RESET}"
+
 #message final de réussite
 echo -e "${VERT_GRAS}✓ Tout s'est bien passé, tout a bien été configuré !${RESET}"
