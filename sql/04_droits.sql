@@ -6,26 +6,26 @@ DROP ROLE if exists analyst;
 DROP ROLE if exists support ;
 DROP ROLE if exists appli ;
 DROP ROLE if exists auditeur ;
-DROP ROLE if exists harold_analyst;
-DROP ROLE if exists harold_support;
-DROP ROLE if exists harold_appli;
-DROP ROLE if exists harold_auditeur;
+DROP ROLE if exists employe_analyst;
+DROP ROLE if exists employe_support;
+DROP ROLE if exists employe_appli;
+DROP ROLE if exists employe_auditeur;
 
 --puis on les recréé
 CREATE ROLE analyst NOLOGIN;
 CREATE ROLE support NOLOGIN;
 CREATE ROLE appli NOLOGIN;
 CREATE ROLE auditeur NOLOGIN;
-CREATE ROLE harold_analyst LOGIN;
-CREATE ROLE harold_support LOGIN;
-CREATE ROLE harold_appli LOGIN;
-CREATE ROLE harold_auditeur LOGIN;
+CREATE ROLE employe_analyst LOGIN;
+CREATE ROLE employe_support LOGIN;
+CREATE ROLE employe_appli LOGIN;
+CREATE ROLE employe_auditeur LOGIN;
 
 --on met les roles dans les groupes
-GRANT analyst TO harold_analyst;
-GRANT support TO harold_support;
-GRANT appli TO harold_appli;
-GRANT auditeur TO harold_auditeur;
+GRANT analyst TO employe_analyst;
+GRANT support TO employe_support;
+GRANT appli TO employe_appli;
+GRANT auditeur TO employe_auditeur;
 
 --on donne le droit de se connecter aux seuls comptes souhaités
 GRANT CONNECT ON DATABASE novabank TO analyst,support,appli,auditeur;
