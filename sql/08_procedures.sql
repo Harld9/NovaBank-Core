@@ -2,7 +2,7 @@
 CREATE PROCEDURE virement_securise(p_compte_emetteur bigint, p_compte_destinataire bigint,p_montant numeric)
 LANGUAGE plpgsql
 AS $$
-DECLARE 
+DECLARE
 	id_min bigint;
 	id_max bigint;
 BEGIN
@@ -62,8 +62,10 @@ END;$$;
 CREATE PROCEDURE releve_compte(p_account_id bigint, p_date_debut date,p_date_fin date)
 LANGUAGE plpgsql
 AS $$
-	DECLARE solde_depart numeric;
-	DECLARE solde_final numeric;
+	DECLARE
+	solde_depart numeric;
+	solde_final numeric;
+	i record;
 BEGIN
 	--on verifie que la date de début est antérieure a celle de fin
 	IF p_date_debut > p_date_fin THEN
@@ -78,7 +80,7 @@ BEGIN
 	
 	--on boucle sur chaque résultat de la requete ci-dessous qui cherche toutes les transactions entre les dates voulues
 	FOR i in
-		SELECT * FROM core.transactions WHERE created_at BETWEEN p_date_debut AND p_date_fin AND p_account_id = account_id;
+		SELECT * FROM core.transactions WHERE created_at BETWEEN p_date_debut AND p_date_fin AND p_account_id = account_id
 	LOOP
 		--annoncer chaque transaction
 		RAISE NOTICE 'Transaction du %, Montant : %, Type: %', i.created_at, i.amount,i.tx_type;

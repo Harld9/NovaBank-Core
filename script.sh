@@ -15,6 +15,23 @@ if [[ $EUID -ne 0 ]]; then
         exit 1
 fi
 
+#confirmation de l'utilisateur
+while true; do
+    read -p "Souhaitez-vous réellement supprimer la base de données pour la recréer ? (o/n) : " choix
+
+    if [[ "$choix" == "o" || "$choix" == "O" || "$choix" == "y" || "$choix" == "Y" ]]; then
+        echo "Le script continue"
+        break # Sort de la boucle pour exécuter la suite du script
+    elif [[ "$choix" == "n" || "$choix" == "N" ]]; then
+        echo "Le script s'arrête car vous avez refusé."
+        exit 1 # Arrête complètement le script
+    else
+        echo "Saisie invalide. Veuillez répondre par oui (o/y) ou non (n)."
+        echo "" # Optionnel : affiche une ligne vide pour aérer le texte
+    fi
+done
+
+
 #mis à jour des paquets
 apt-get update
 
@@ -133,12 +150,18 @@ echo -e "${VERT_GRAS}✓ Étape 8 : Création des vues et attribution des droits
 
 #affichage du temps d'une requête dans core.transactions SANS index
 echo "Temps d'une requête SANS index : $(sudo -u postgres psql -d "${nomdb}" -t -c "EXPLAIN ANALYZE SELECT * FROM core.transactions WHERE account_id = 42;" | grep "Execution Time")"
+echo "Temps d'une requête SANS index : $(sudo -u postgres psql -d "${nomdb}" -t -c "EXPLAIN ANALYZE SELECT * FROM core.accounts WHERE customer_id = 84;" | grep "Execution Time")"
+echo "Temps d'une requête SANS index : $(sudo -u postgres psql -d "${nomdb}" -t -c "EXPLAIN ANALYZE SELECT * FROM core.transfers WHERE from_account_id = 122;" | grep "Execution Time")"
+echo "Temps d'une requête SANS index : $(sudo -u postgres psql -d "${nomdb}" -t -c "EXPLAIN ANALYZE SELECT * FROM core.transactions WHERE created_at >= '2026-08-12' AND created_at < '2026-08-13';" | grep "Execution Time")"
 
 #création des index
 sudo -u postgres psql -v ON_ERROR_STOP=ON -f ./sql/06_index.sql -d "${nomdb}"
 
 #affichage du temps d'une requête dans core.transactions AVEC index
 echo "Temps d'une requête AVEC index : $(sudo -u postgres psql -d "${nomdb}" -t -c "EXPLAIN ANALYZE SELECT * FROM core.transactions WHERE account_id = 42;" | grep "Execution Time")"
+echo "Temps d'une requête AVEC index : $(sudo -u postgres psql -d "${nomdb}" -t -c "EXPLAIN ANALYZE SELECT * FROM core.accounts WHERE customer_id = 84;" | grep "Execution Time")"
+echo "Temps d'une requête AVEC index : $(sudo -u postgres psql -d "${nomdb}" -t -c "EXPLAIN ANALYZE SELECT * FROM core.transfers WHERE from_account_id = 122;" | grep "Execution Time")"
+echo "Temps d'une requête AVEC index : $(sudo -u postgres psql -d "${nomdb}" -t -c "EXPLAIN ANALYZE SELECT * FROM core.transactions WHERE created_at >= '2026-08-12' AND created_at < '2026-08-13';" | grep "Execution Time")"
 
 #message réussite étape 9
 echo -e "${VERT_GRAS}✓ Étape 9 : Création des index réussie !${RESET}"
