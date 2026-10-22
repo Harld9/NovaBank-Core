@@ -1,0 +1,3 @@
+#on force les fins de ligne linux (LF) pour que les scripts bash marchent dans la VM meme si on modifie sous windows
+* text=auto eol=lf
+*.png binary
