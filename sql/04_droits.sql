@@ -45,7 +45,10 @@ GRANT SELECT ON core.transactions,core.accounts TO analyst;
 GRANT SELECT (customer_id,birth_date) ON core.customers TO analyst;
 
 --droits donnés spécifique donné au support
-GRANT SELECT ON core.accounts,core.customers TO support;
+--le support ne lit pas toute la table clients sinon il voit les emails en clair, il passe par la vue v_support
+GRANT SELECT ON core.accounts TO support;
+--il a juste besoin de customer_id pour savoir quel client il modifie (WHERE customer_id = ...)
+GRANT SELECT (customer_id) ON core.customers TO support;
 GRANT UPDATE (phone,email) ON core.customers TO support;
 
 --droits donnés spécifique donné à l'appli
@@ -54,3 +57,7 @@ GRANT UPDATE (balance) ON core.accounts TO appli;
 
 --droits donnés spécifique donné à l'auditeur
 GRANT SELECT ON audit.audit_log TO auditeur;
+
+--on coupe automatiquement les requêtes de l'analyste qui durent plus de 30 secondes pour qu'il ne ralentisse pas toute la base
+--on le met sur employe_analyst car ce réglage s'applique au compte qui se connecte et ne passe pas par le groupe
+ALTER ROLE employe_analyst SET statement_timeout = '30s';

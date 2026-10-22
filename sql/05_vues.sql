@@ -1,5 +1,5 @@
 --creation de la vue qui n'affiche pas l'entiereté des infos sensibles des **** a la place du contenu sensible
-CREATE VIEW v_support AS SELECT first_name, last_name, LEFT(SPLIT_PART(email, '@', 1),1) || '*****@' || SPLIT_PART(email, '@', 2) as email,LEFT(phone,2) ||'********'|| RIGHT(phone,2) as phone FROM core.customers;
+CREATE VIEW v_support AS SELECT customer_id, first_name, last_name, LEFT(SPLIT_PART(email, '@', 1),1) || '*****@' || SPLIT_PART(email, '@', 2) as email,LEFT(phone,2) ||'********'|| RIGHT(phone,2) as phone FROM core.customers;
 
 --creation de la vue qui ne permet pas de modifier des comptes inactifs
 CREATE VIEW v_comptes_actifs AS SELECT * FROM core.accounts WHERE status = 'actif' WITH CHECK OPTION;
