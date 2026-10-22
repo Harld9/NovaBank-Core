@@ -53,8 +53,13 @@ EXECUTE FUNCTION protection_historique();
 ------------------------------------------------------
 
 --creation d'une fonction trigger qui écrit dans la table audit chaque modification (qui, quand, avant, après)
---SECURITY DEFINER : la fonction tourne avec les droits de son proprietaire patron_novabank car l'appli et le support n'ont pas le droit d'écrire dans audit
---SET search_path : sécurité pour qu'on ne puisse pas tromper la fonction avec une fausse table audit_log créée ailleurs
+--SECURITY DEFINER : par defaut une fonction tourne avec les droits de celui qui l'utilise (SECURITY INVOKER)
+--quand l'appli fait un virement, le trigger essaierait donc d'écrire dans audit avec les droits de l'appli et serait refusé (permission denied for schema audit)
+--avec SECURITY DEFINER la fonction tourne avec les droits de son proprietaire patron_novabank qui lui a le droit d'écrire dans audit
+--l'appli peut donc déclencher l'audit sans avoir le droit de lire ou modifier le journal elle-même
+--SET search_path : le search_path c'est la liste des schemas où postgres cherche une table quand on ne précise pas le schema
+--une fonction SECURITY DEFINER a des droits élevés donc on fixe cette liste (audit puis pg_temp) pour que personne ne puisse
+--la tromper en créant une fausse table du même nom dans un autre schema
 CREATE FUNCTION audit_changement() RETURNS TRIGGER
 language plpgsql
 SECURITY DEFINER
@@ -85,7 +90,7 @@ EXECUTE FUNCTION audit_changement();
 ------------------------------------------------------
 
 --creation d'une fonction trigger qui crée une alerte : retrait de 5000 ou plus, ou 5 virements en 10 minutes
---SECURITY DEFINER pour la même raison que l'audit : l'appli n'a pas le droit d'écrire dans core.fraud_alerts
+--SECURITY DEFINER et SET search_path pour la même raison que l'audit : l'appli n'a pas le droit d'écrire dans core.fraud_alerts
 CREATE FUNCTION detection_fraude() RETURNS TRIGGER
 language plpgsql
 SECURITY DEFINER
